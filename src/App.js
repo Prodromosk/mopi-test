@@ -50,7 +50,7 @@ class App extends Component {
         <tbody>
           <tr>
             <td>
-              <img alt="Movies DB Logo" className="moviesDbLogo" src="moviesdb.svg"/>
+              <img alt="The Movies DB Logo" className="moviesDbLogo" src="moviesdb.svg"/>
             </td>
             <td>
               <h3>Mopi Search</h3>
