@@ -1,7 +1,21 @@
 import React, {Component} from 'react';
+import { BrowserRouter as Router,
+         Link,
+         Switch,
+         Route } from 'react-router-dom';
+
 import './App.css';
-import MovieRow from './components/movies'
+import './components/movie/movie.css';
+
+import MovieRow from './components/movie/movie';
+import Favorite from './views/fav';
+import WatchLater from './views/watchLater';
+
 import $ from 'jquery'
+
+const APIKEY = '7cab534891bcb78b8d5a153f1f4133b9';
+var baseUrl = 'https://api.themoviedb.org/3/search/movie'
+var searchMovieUrl = ''.concat(baseUrl, '?api_key=', APIKEY, '&query=');
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +26,7 @@ class App extends Component {
   }
 
   searchMovie(searchTerm) {
-    const movieDbUrl = "https://api.themoviedb.org/3/search/movie?api_key=7cab534891bcb78b8d5a153f1f4133b9&query=" + searchTerm
+    const movieDbUrl = searchMovieUrl + searchTerm
     $.ajax({
       url: movieDbUrl,
       success: (searchResults) => {
@@ -46,20 +60,37 @@ class App extends Component {
     return (
     <div className="App">
 
-<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a className="navbar-brand" href={""}>MoPi Search</a>
-</nav>
+    <Router>
+    <nav className="navbar navbar-dark bg-dark">
+      <ul className="navbar-nav">
+        <li className="nav-link">
+            {' '}
+            <Link to="/watch-Later">Watch Later</Link>{' '}
+        </li>
+        <li className="nav-link">
+            {' '}
+            <Link to="/my-favorites">Loved Movies</Link>{' '}
+        </li>
+      </ul>
+    </nav>
 
-<div className="searchBox has-search">
-  <span className="fa fa-search form-control-feedback"></span>
-  <input onChange= {this.searchMovieInput.bind(this)}
-         className="form-control" type="text"
-         placeholder="Search for a movie"
-         aria-label="Search"></input>
-  </div>
+      <Switch>
+        <Route path="/my-favorites" component={ Favorite } />
+        <Route path="/watch-later" component={ WatchLater } />
+      </Switch>
+    </Router>
+
+      <div className="searchBox has-search">
+        <span className="fa fa-search form-control-feedback"></span>
+        <input onChange= {this.searchMovieInput.bind(this)}
+               className="form-control" type="text"
+               placeholder="Search for a movie"
+               aria-label="Search"></input>
+      </div>
       {this.state.rows}
     </div>
   );
 }
 }
-export default App;
+
+export { App as default, APIKEY, baseUrl, searchMovieUrl };

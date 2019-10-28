@@ -20,23 +20,6 @@
     color: #aaa;
 }
 
-.moviePosterImg {
-  border-radius: 6px;
-  position: relative;
-}
-
-.media  {
-  margin-bottom: 15px;
-  /* margin-left: 20px; */
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-}
-
-.media-body {
-  margin-left: 15px;
-}
-
 .App {
   text-align: left;
 }
